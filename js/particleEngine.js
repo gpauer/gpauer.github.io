@@ -1,16 +1,16 @@
 ////////////////////////// PARTICLE ENGINE ////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-var ParticleEngine = (function() {
+let ParticleEngine = (function() {
 	'use strict';
 
-	function ParticleEngine(canvas_id) {
+	const ParticleEngine = (canvas_id) => {
 		// enforces new
 		if (!(this instanceof ParticleEngine)) {
 			return new ParticleEngine(args);
 		}
 		
-		var _ParticleEngine = this;
+		let _ParticleEngine = this;
 
 		this.canvas_id = canvas_id;
 		this.stage = new createjs.Stage(canvas_id);
@@ -29,12 +29,12 @@ var ParticleEngine = (function() {
 		this.stage.compositeOperation = _ParticleEngine.compositeStyle;
 
 
-		function drawBgLight()
+		const drawBgLight = () =>
 		{
-			var light;
-			var bounds;
-			var blurFilter;
-			for (var i = 0, len = _ParticleEngine.lights.length; i < len; i++) {				
+			let light;
+			let bounds;
+			let blurFilter;
+			for (let i = 0, len = _ParticleEngine.lights.length; i < len; i++) {				
 				light = new createjs.Shape();
 				light.graphics.beginFill(_ParticleEngine.lights[i].color).drawEllipse(0, 0, _ParticleEngine.lights[i].ellipseWidth, _ParticleEngine.lights[i].ellipseHeight);
 				light.regX = _ParticleEngine.lights[i].ellipseWidth/2;
@@ -59,21 +59,21 @@ var ParticleEngine = (function() {
 			TweenMax.fromTo(_ParticleEngine.lights[2].elem, 8, { x:_ParticleEngine.lights[2].elem.initX, y:_ParticleEngine.lights[2].elem.initY},{delay:2, yoyo:true, repeat:-1, ease:Power1.easeInOut, scaleY:1.5, scaleX:1.5, y:_ParticleEngine.totalHeight/2, x:_ParticleEngine.totalWidth/2-200});
 		}
 		
-		var blurFilter;
-		function drawParticles(){
+		let blurFilter;
+		const drawParticles = () => {
 
-			for (var i = 0, len = _ParticleEngine.particleSettings.length; i < len; i++) {
-				var ball = _ParticleEngine.particleSettings[i];
+			for (let i = 0, len = _ParticleEngine.particleSettings.length; i < len; i++) {
+				let ball = _ParticleEngine.particleSettings[i];
 
-				var circle;
-				for (var s = 0; s < ball.num; s++ )
+				let circle;
+				for (let s = 0; s < ball.num; s++ )
 				{
 					circle = new createjs.Shape();
 					if(ball.fill){
 						circle.graphics.beginFill(ball.color).drawCircle(0, 0, ball.ballwidth);
 						blurFilter = new createjs.BlurFilter(ball.ballwidth/2, ball.ballwidth/2, 1);
 						circle.filters = [blurFilter];
-						var bounds = blurFilter.getBounds();
+						let bounds = blurFilter.getBounds();
 						circle.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
 					}else{
 						circle.graphics.beginStroke(ball.color).setStrokeStyle(1).drawCircle(0, 0, ball.ballwidth);
@@ -107,17 +107,17 @@ var ParticleEngine = (function() {
 			circle.initX = weightedRange(positionX, totalWidth, 1, [positionX+ ((totalWidth-positionX))/4, positionX+ ((totalWidth-positionX)) * 3/4], 0.6);
 		}
 
-		function animateBall(ball)
+		const animateBall = (ball) =>
 		{
-			var scale = range(0.3, 1);
-			var xpos = range(ball.initX - ball.distance, ball.initX + ball.distance);
-			var ypos = range(ball.initY - ball.distance, ball.initY + ball.distance);
-			var speed = ball.speed;
+			let scale = range(0.3, 1);
+			let xpos = range(ball.initX - ball.distance, ball.initX + ball.distance);
+			let ypos = range(ball.initY - ball.distance, ball.initY + ball.distance);
+			let speed = ball.speed;
 			TweenMax.to(ball, speed, {scaleX:scale, scaleY:scale, x:xpos, y:ypos, onComplete:animateBall, onCompleteParams:[ball], ease:Cubic.easeInOut});	
 			TweenMax.to(ball, speed/2, {alpha:range(0.1, ball.alphaMax), onComplete:fadeout, onCompleteParams:[ball, speed]});	
 		}	
 
-		function fadeout(ball, speed)
+		const fadeout = (ball, speed) =>
 		{
 			ball.speed = range(2, 10);
 			TweenMax.to(ball, speed/2, {alpha:0 });
@@ -138,12 +138,12 @@ var ParticleEngine = (function() {
 		this.totalHeight = this.canvasHeight = document.getElementById(this.canvas_id).height = document.getElementById(this.canvas_id).offsetHeight;
 		this.render();
 
-		for (var i= 0, length = this.particleArray.length; i < length; i++)
+		for (let i= 0, length = this.particleArray.length; i < length; i++)
 		{
 			this.applySettings(this.particleArray[i], 0, this.totalWidth, this.particleArray[i].areaHeight);
 		}
 
-		for (var j = 0, len = this.lights.length; j < len; j++) {
+		for (let j = 0, len = this.lights.length; j < len; j++) {
 			this.lights[j].elem.initY = this.totalHeight/2 + this.lights[j].offsetY;
 			this.lights[j].elem.initX =this.totalWidth/2 + this.lights[j].offsetX;
 			TweenMax.to(this.lights[j].elem, .5, {x:this.lights[j].elem.initX, y:this.lights[j].elem.initY});			
@@ -158,18 +158,18 @@ var ParticleEngine = (function() {
 ////////////////////////UTILS//////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
-function range(min, max)
+const range = (min, max) =>
 {
 	return min + (max - min) * Math.random();
 }
 		
-function round(num, precision)
+const round = (num, precision) =>
 {
-   var decimal = Math.pow(10, precision);
+   let decimal = Math.pow(10, precision);
    return Math.round(decimal* num) / decimal;
 }
 
-function weightedRange(to, from, decimalPlaces, weightedRange, weightStrength)
+const weightedRange = (to, from, decimalPlaces, weightedRange, weightStrength) =>
 {
 	if (typeof from === "undefined" || from === null) { 
 	    from = 0; 
@@ -184,7 +184,7 @@ function weightedRange(to, from, decimalPlaces, weightedRange, weightStrength)
 	    weightStrength = 0; 
 	}
 
-   var ret
+   let ret
    if(to == from){return(to);}
  
    if(weightedRange && Math.random()<=weightStrength){
@@ -198,17 +198,17 @@ function weightedRange(to, from, decimalPlaces, weightedRange, weightStrength)
 ///////////////// RUN CODE //////////////////////////
 //////////////////////////////////////////////////////
 
-var particles
+let particles
 (function(){
 	particles = new ParticleEngine('projector');
 	createjs.Ticker.addEventListener("tick", updateCanvas);
 	window.addEventListener('resize', resizeCanvas, false);
 
-	function updateCanvas(){
+	const updateCanvas = () => {
 		particles.render();
 	}
 
-	function resizeCanvas(){
+	const resizeCanvas = () => {
 		particles.resize();
 	}
 }());
