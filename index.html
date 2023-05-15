@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -66,12 +66,13 @@
     <ul>    
       <li>
         <h3>Snake</h3>
-        <article>Description of project 1.</article>
-        <a href="./snake.html">Play Snake</a>
+        <article>Random 1</article>
+        <a href="./html/snake.html">Play Snake</a>
       </li>
       <li>
-        <h3>Project 2</h3>
-        <article>Description of project 2.</article>
+        <h3>Floaty Stuff</h3>
+        <article>Description of random project 2.</article>
+        <a href="./html/float.html">Float</a>
       </li>
     </ul>
   </section>
@@ -84,24 +85,5 @@
   <footer>
     <p>&copy; 2023 My Portfolio. All rights reserved.</p>
   </footer>
-
-  <object class="holder">
-    <svg xmlns="http://www.w3.org/2000/svg">
-        <filter id="stripes">
-          <feTurbulence baseFrequency=".1 0.5"/>
-          <feColorMatrix values=".05 .1 0 0 0 .65 .4 0 0 0 .07 .1 .1 0 0 0 0 0 0 1"/>
-        </filter>
-        <pattern id="pattern" width="1" height="1">
-          <rect width="200%" height="200%" filter="url(#stripes)"/>
-        </pattern>
-        <filter id="filter">
-            <feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="11"/>
-            <feDisplacementMap in="SourceGraphic" scale="250"/>
-          <feComposite operator="in" in2="SourceGraphic" />
-        </filter>
-      <circle cx="50%" cy="50%" r="25%" fill="darkblue"/>
-      <circle cx="50%" cy="50%" r="25%" fill="url(#pattern)" filter="url(#filter)" stroke="tan" stroke-width="2"/>
-    </svg>
-</object>
 
 </html>
