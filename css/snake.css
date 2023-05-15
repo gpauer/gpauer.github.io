@@ -1,0 +1,33 @@
+/* Game container styles */
+.game-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 50px auto;
+    background-color: #ddd;
+    border: 2px solid #888;
+  }
+  
+  /* Snake styles */
+  .snake {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #333;
+  }
+  
+  .snake-body {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #333;
+  }
+
+  /* Food styles */
+  .food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+  }
+  
